@@ -28,7 +28,7 @@ static class Program
 	
 	public static void MyMessage()
 	{
-		MessageBox.Show("Кнопка нажата!",DateTime.Now.ToString());
+		MessageBox.Show("Кнопка нажата!Ура!",DateTime.Now.ToString());
 		
 	}
 	public static void Resize(Form form,Button button)
