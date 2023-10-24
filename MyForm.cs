@@ -1,26 +1,29 @@
 using System.Windows.Forms;
 public class MyForm:Form
 {
-	int XButtonPosition {get; set;}
-	int YButtonPosition {get; set;}
+	
+	
 	Button MyButton = new Button();
+	ComboBox MycomboBox = new ComboBox();
+	Label label2 = new Label();
 	Label label  = new Label();
 	public TextBox textBox = new TextBox();
+	public TextBox textBox2 = new TextBox();
 	 
 	public MyForm()
     {
         InitializeComponent();
 		
-		MyButton.Click += delegate {MyMessage();};
-		ResizeBegin += delegate{MyResize();};
-		ResizeEnd += delegate{MyResize();};
+		MyButton.Click += delegate{MyMessage();};
+		Resize += delegate{MyResize();};
     }
 
     void InitializeComponent()
     {
+		Font = new Font("Arial", 13f);
 		this.Text="Это моя первая форма";
 		StartPosition = FormStartPosition.CenterScreen;
-		Size= new Size(1200,800);
+		Size= new Size(600,400);
 		MinimumSize = new Size(600,400);
 		 //myform.Opacity = .95;
 		 
@@ -31,24 +34,44 @@ public class MyForm:Form
 		 
 		 
 
-		 label.Text="Введите текст:";
+		 label.Text="Введите число:";
 		 textBox.Location = new Point(label.Size.Width+10,0);
+		 textBox.Text = "";
+		 
+		 label2.Text="Введите число:";
+		 label2.Location = new Point(210,0);
+		 textBox2.Location = new Point(textBox.Size.Width+210,0);
+		 textBox2.Text = "";
+		 
+		 MycomboBox.Location = new Point(0,200);
+		 MycomboBox.Items.Add("+");
+		 MycomboBox.DropDownStyle= ComboBoxStyle.DropDownList;
+		MycomboBox.SelectedIndex = 0;
 		 
 		 Controls.Add(MyButton);
 		 Controls.Add(label);
+		 Controls.Add(label2);
 		 Controls.Add(textBox);
+		 Controls.Add(textBox2);
+		 Controls.Add(MycomboBox);
 		
 		
 	}
+	
 	void MyMessage()
 	{
-		MessageBox.Show("Кнопка нажата!Ура!",DateTime.Now.ToString());
+		int x=0,y=0;
+	
+		Int32.TryParse(textBox.Text, out x);
+		Int32.TryParse(textBox2.Text,out y);
+
+		MessageBox.Show($"{x}+{y}={x+y}","результат");
 		
 	}
 	void MyResize()
 	{
-		XButtonPosition = this.Size.Width/2 - MyButton.Size.Width/2;
-		YButtonPosition = this.Size.Height/2 - MyButton.Size.Height/2;
+		int XButtonPosition = this.Size.Width/2 - MyButton.Size.Width/2;
+		int YButtonPosition = this.Size.Height/2 - MyButton.Size.Height/2;
 		MyButton.Location = new Point(XButtonPosition,YButtonPosition);
 	}
 }
