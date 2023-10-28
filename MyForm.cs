@@ -94,13 +94,10 @@ public class MyForm : Form
 		else if (MycomboBox.SelectedIndex.Equals(3))
 		{
 			//Проверка деления на ноль
-			if (textBox.Text.Equals("0"))
-				MessageBox.Show("на ноль делить нельзя");
-
-			else if (textBox2.Text.Equals("0"))
+			if (textBox2.Text.Equals("0"))
 			MessageBox.Show("на ноль делить нельзя");
 			//
-			else if(textBox.Text != ("0") && textBox2.Text != ("0"))
+			else if(textBox2.Text != ("0"))
 			MessageBox.Show($"{x}/{y}={x / y}", "результат");
 		}
 		else
