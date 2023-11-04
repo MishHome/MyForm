@@ -1,4 +1,5 @@
-﻿static class Program
+﻿namespace MyForm;
+static class Program
 {
 	public static void Main()
 	{

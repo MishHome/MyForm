@@ -1,5 +1,6 @@
+using MyForm;
 using System.Windows.Forms;
-
+namespace MyForm;
 public class MyForm : Form
 {
 	//Определяем контролы
@@ -68,10 +69,11 @@ public class MyForm : Form
 
 		//MycomboBox
 		MycomboBox.Location = new Point(0,60);
-		MycomboBox.Items.Add("Плюс");
-		MycomboBox.Items.Add("Минус");
-        MycomboBox.Items.Add("Умножить");
-        MycomboBox.Items.Add("Делить");
+		MycomboBox.Items.Add(MyCacl.Calculation.MyAction.Сложить);
+		MycomboBox.Items.Add(MyCacl.Calculation.MyAction.Разделить);
+        MycomboBox.Items.Add(MyCacl.Calculation.MyAction.Вычесть);
+        MycomboBox.Items.Add(MyCacl.Calculation.MyAction.Умножить);
+        MycomboBox.Items.Add(MyCacl.Calculation.MyAction.СуммаПоследовательности);
         MycomboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 		MycomboBox.SelectedIndex = 0;
 
@@ -86,33 +88,22 @@ public class MyForm : Form
 		Controls.Add(MycomboBox);
 		Controls.Add(MyButton2);
 	}
-	//Вычесление
 	void MyCalculation()
 	{
 		int x = 0, y = 0;
         Int32.TryParse(textBox.Text, out x);
         Int32.TryParse(textBox2.Text, out y);
 
-		if (MycomboBox.SelectedIndex.Equals(0))
-			labelAnswer.Text = ($"{x} + {y} = {x + y}");
-
-		else if (MycomboBox.SelectedIndex.Equals(1))
-			labelAnswer.Text = ($"{x} - {y} = {x - y}");
-
-		else if (MycomboBox.SelectedIndex.Equals(2))
-			labelAnswer.Text = ($"{x} * {y} = {x * y}");
-
-		else if (MycomboBox.SelectedIndex.Equals(3))
+		var sel = MycomboBox.SelectedItem;
+		
+		if(Enum.IsDefined(typeof(MyCacl.Calculation.MyAction),sel))
 		{
-			//Проверка деления на ноль
-			if (textBox2.Text.Equals("0"))
-				labelAnswer.Text = ("на ноль делить нельзя");
-			//
-			else if(textBox2.Text != ("0"))
-				labelAnswer.Text = ($"{x} / {y} = {x / y}");
+			labelAnswer.Text = MyCacl.Calculation.ChangeAction((MyCacl.Calculation.MyAction)sel, x, y);
 		}
 		else
-			labelAnswer.Text = ("Выбирете действие");
+		{
+			MessageBox.Show("данный метод не реализован!");
+		}
     }
 
 	//Метод определения места кнопок
